@@ -6,35 +6,45 @@ const typeDefs = `
     title: String
     author: String
   }  
+
+  type greeting {
+    message: String
+  }
+
   type Query {
     books: [Book]
+    greeting: greeting
   }
+   
 `;
 const books = [
     {
-      title: 'The Awakening',
-      author: 'Kate Chopin',
+        title: 'The Awakening',
+        author: 'Kate Chopin',
     },
     {
-      title: 'City of Glass',
-      author: 'Paul Auster',
+        title: 'City of Glass',
+        author: 'Paul Auster',
     },
-  ];
-
-  const resolvers = {
+];
+const greeting = {
+    message: 'Hello GraphQL  From TutorialsPoint !!'
+}
+const resolvers = {
     Query: {
-      books: () => books,
+        books: () => books,
+        greeting: () => greeting
     },
-  };
+};
 
-  const server = new ApolloServer({
+const server = new ApolloServer({
     typeDefs,
     resolvers,
-  });
-  
+});
 
-  const { url } = await startStandaloneServer(server, {
+
+const { url } = await startStandaloneServer(server, {
     listen: { port: 4000 },
-  });
-  
-  console.log(`🚀  Server ready at: ${url}`);
+});
+
+console.log(`🚀  Server ready at: ${url}`);
